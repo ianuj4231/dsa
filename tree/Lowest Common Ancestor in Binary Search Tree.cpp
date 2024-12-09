@@ -10,8 +10,17 @@ struct TreeNode{
         right=nullptr;
       }
 };
-
-
+/*
+      10
+     /
+    5
+   /
+  2
+ /
+1
+The algorithm traversed down all 4 nodes in the tree (10 -> 5 -> 2 -> 1). so worst case time is o-N for skewed tree and o(log N ) for balanced tree
+  space is o-1
+  */    
 TreeNode* lca(TreeNode* root , TreeNode*    node1, TreeNode* node2){
     if(!root || !node1 ||  !node2 ){
       return nullptr;
