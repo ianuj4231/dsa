@@ -51,6 +51,7 @@ TreeNode* deserialize(string data){
               curr->left=new TreeNode(stoi(val));
               q.push(curr->left);
           }
+          in>>val;
           if(val!="null"){
              curr->right=new TreeNode(stoi(val));
              q.push(curr->right);
