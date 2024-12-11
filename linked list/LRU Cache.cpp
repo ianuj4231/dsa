@@ -1,4 +1,11 @@
 // o-1 and o-1 
+
+/*
+Time Complexity:
+get(key): O(1)
+put(key, value): O(1)
+Space Complexity: O(capacity)
+*/
 #include <iostream>
 #include <unordered_map>
 #include <list>
