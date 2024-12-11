@@ -6,65 +6,62 @@ get(key): O(1)
 put(key, value): O(1)
 Space Complexity: O(capacity)
 */
+
 #include <iostream>
-#include <unordered_map>
 #include <list>
+#include <unordered_map>
 using namespace std;
 
 class LRUCache {
-private:
     int capacity;
+    list<int> dll; // Doubly linked list to maintain order
     unordered_map<int, pair<int, list<int>::iterator>> cache;
-    list<int> order;
 
 public:
-    // Constructor with initializer list
-    LRUCache(int capacity) : capacity(capacity) {}
+    LRUCache(int cap) : capacity(cap) {}
 
     int get(int key) {
-        if (cache.find(key) == cache.end()) {
-            return -1; // Key not found
-        }
+        if (cache.find(key) == cache.end()) return -1;
 
-        // Move the accessed key to the front of the list
-        order.splice(order.begin(), order, cache[key].second);
-
-        return cache[key].first; // Return the value
+        // Move the key to the front of the DLL
+        dll.splice(dll.begin(), dll, cache[key].second);
+        return cache[key].first;
     }
 
     void put(int key, int value) {
         if (cache.find(key) != cache.end()) {
-            // Update value and move to the front
+            // Update value and move to front
             cache[key].first = value;
-            order.splice(order.begin(), order, cache[key].second);
+            dll.splice(dll.begin(), dll, cache[key].second);
         } else {
-            if (cache.size() >= capacity) {
-                // Remove least recently used key
-                int lru = order.back();
-                order.pop_back();
+            if (cache.size() == capacity) {
+                // Evict the LRU key
+                int lru = dll.back();
+                dll.pop_back();
                 cache.erase(lru);
             }
-
-            // Insert new key-value pair
-            order.push_front(key);
-            cache[key] = {value, order.begin()};
+            // Add the new key to the front
+            dll.push_front(key);
+            cache[key] = {value, dll.begin()};
         }
     }
 };
 
 int main() {
-    LRUCache cache(2);
-    cache.put(1, 10);
-    cout << "Get 1: " << cache.get(1) << endl;  // Returns 10
-    cache.put(2, 20);
-    cout << "Get 2: " << cache.get(2) << endl;  // Returns 20
-    cache.put(3, 30);  // Removes key 1 (LRU)
-    cout << "Get 1: " << cache.get(1) << endl;  // Returns -1 (evicted)
-    cout << "Get 2: " << cache.get(2) << endl;  // Returns 20
-    cout << "Get 3: " << cache.get(3) << endl;  // Returns 30
+    LRUCache lru(2);
+
+    lru.put(1, 10);
+    lru.put(2, 20);
+    cout << lru.get(1) << endl; // Output: 10 (key 1 becomes MRU)
+
+    lru.put(3, 30); // Evicts key 2 (LRU)
+    cout << lru.get(2) << endl; // Output: -1 (key 2 not found)
+    cout << lru.get(3) << endl; // Output: 30
+    cout << lru.get(1) << endl; // Output: 10
 
     return 0;
 }
+
 
 // #include <iostream>
 // #include <unordered_map>
