@@ -168,4 +168,17 @@ get(key): O(1) because accessing a hash map and moving the node to the front of 
 put(key, value): O(1) because inserting into the hash map and managing the doubly linked list (removing and adding nodes) is done in constant time.
 Space Complexity:
 O(capacity): The space is used for storing the cache, which contains at most capacity nodes.
+
+Is cache[key].second like an index?
+Not exactly, but it functions similarly:
+
+An index (e.g., array[index]) is a numerical value that specifies the position of an element in an array.
+In a linked list, there are no indices since nodes are connected via pointers. Instead, we use iterators to refer to a specific node in the list.
+cache[key].second is a list<int>::iterator, which is:
+
+A "pointer-like" object that directly refers to a specific node in the doubly linked list (dll).
+This is why operations like moving the node to the front or removing it are efficient (O(1)).
+
 */
+
+
