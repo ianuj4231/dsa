@@ -38,3 +38,19 @@ public:
         return res->next;
     }
 };
+/*
+Time complexity: 
+O
+(
+m
++
+n
+)
+O(m+n)
+Space complexity: 
+O
+(
+1
+)
+O(1)
+*/
