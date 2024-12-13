@@ -1,62 +1,60 @@
 #include <iostream>
 using namespace std;
 
-// Define the structure of a Node
-struct Node {
-    int data;
-    Node* next;
-    
-    Node(int value) : data(value), next(nullptr) {}  // Constructor to initialize the node
+// Define a singly linked list node structure
+struct ListNode {
+    int val;
+    ListNode* next;
+
+    ListNode(int x) : val(x), next(nullptr) {} // Constructor to initialize node
 };
 
-// Function to reverse the linked list iteratively
-Node* reverseList(Node* head) {
-    Node* prev = nullptr;
-    Node* curr = head;
-    Node* next = nullptr;
-
-    while (curr != nullptr) {
-        next = curr->next;  // Save the next node
-        curr->next = prev;  // Reverse the current node's pointer
-        prev = curr;        // Move prev and curr one step forward
-        curr = next;
+// Function to reverse a linked list
+ListNode* reverseLinkedList(ListNode* head) {
+    if (head == nullptr || head->next == nullptr) {
+        return head;
     }
-    return prev;  // prev will be the new head of the reversed list
+
+    ListNode* preNode = nullptr;  // Initialize previous node to nullptr
+    ListNode* currNode = head;    // Start with the head node
+
+    while (currNode != nullptr) {
+        ListNode* nextNode = currNode->next; // Save the next node
+        currNode->next = preNode;           // Reverse the link
+        preNode = currNode;                 // Move preNode to currNode
+        currNode = nextNode;                // Move currNode to nextNode
+    }
+
+    return preNode; // New head of the reversed list
 }
 
-// Function to print the linked list
-void printList(Node* head) {
-    Node* temp = head;
+// Helper function to print the linked list
+void printList(ListNode* head) {
+    ListNode* temp = head;
     while (temp != nullptr) {
-        cout << temp->data << " ";
+        cout << temp->val << " -> ";
         temp = temp->next;
     }
-    cout << endl;
+    cout << "NULL" << endl;
 }
 
+// Main function for testing
 int main() {
-    // Create a linked list: 1 -> 2 -> 3 -> 4 -> 5
-    Node* head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(4);
-    head->next->next->next->next = new Node(5);
+    // Create a linked list: 4 -> 8 -> 15 -> 16 -> NULL
+    ListNode* head = new ListNode(4);
+    head->next = new ListNode(8);
+    head->next->next = new ListNode(15);
+    head->next->next->next = new ListNode(16);
 
-    cout << "Original List: ";
+    cout << "Original Linked List: ";
     printList(head);
 
     // Reverse the linked list
-    head = reverseList(head);
+    head = reverseLinkedList(head);
 
-    cout << "Reversed List: ";
+    cout << "Reversed Linked List: ";
     printList(head);
 
     return 0;
-}   This approach reverses the list in-place with a time complexity of O(n) and space complexity of O(1).
-
-
-
-
-
-
-
+}
+  // o-1 space and o-n time
