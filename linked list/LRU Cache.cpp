@@ -179,6 +179,19 @@ cache[key].second is a list<int>::iterator, which is:
 A "pointer-like" object that directly refers to a specific node in the doubly linked list (dll).
 This is why operations like moving the node to the front or removing it are efficient (O(1)).
 
+Example
+Imagine the dll contains {3, 2, 1} and cache maps keys to:
+
+cache[1] -> {value: 10, iterator: points to node with value 1}
+cache[2] -> {value: 20, iterator: points to node with value 2}
+cache[3] -> {value: 30, iterator: points to node with value 3}
+If you call get(2):
+
+splice moves the node with value 2 to the front:
+dll becomes {2, 3, 1}.
+The iterator stored in cache[2].second still points to the node with value 2, which is now at the front.
+No need to update cache[2].second because it already points to the correct node.
+
 */
 
 
