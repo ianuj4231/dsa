@@ -19,3 +19,16 @@ public:
                 return res;
     }
 };
+/*
+bt(0, 0, "")
+  ├── bt(1, 0, "(")
+  │     ├── bt(2, 0, "((")
+  │     │     └── bt(2, 1, "(()")
+  │     │           └── bt(2, 2, "(())")  [Base case, add to res]
+  │     └── bt(1, 1, "()")
+  │           ├── bt(2, 1, "()(")
+  │           │     └── bt(2, 2, "()()")  [Base case, add to res]
+  │           └── [End of branch]
+  └── [End of branch]
+
+*/
