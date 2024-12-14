@@ -22,7 +22,7 @@ public:
          while(left<=right){
             int mid=left+(right-left)/2;
              if(nums[mid].second<=timestamp){
-                        res=nums[mid].first;
+                        res=nums[mid].first;  // immediately capture the result, if it is <= 
                         left=mid+1;
              }
              else{
@@ -32,3 +32,5 @@ public:
          return res;
     }
 };
+
+// use example 2 4 6 8 10///.. and if  timestamp is 6 
