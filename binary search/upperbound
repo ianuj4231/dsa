@@ -1,0 +1,31 @@
+
+
+
+
+1 5 18 26 36 //  lb of 4 is 1.
+
+if nums[mid] > targt {
+	res=mid;
+	right=mid-1;	
+}
+else left=mid+1;
+
+above is u.b code
+
+below is l.b
+1 2 2 2 2 2 2   ...2 is  = index 1
+
+if(nums[mid]<=target){
+		right=mid-1; // I move to my left.. I need 						leftmost
+		res=mid;
+
+}
+else{
+		left=mid+1;
+}
+
+
+
+
+
+
