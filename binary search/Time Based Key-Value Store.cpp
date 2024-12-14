@@ -22,7 +22,7 @@ public:
          while(left<=right){
             int mid=left+(right-left)/2;
              if(nums[mid].second<=timestamp){
-                        res=nums[mid].first;  // immediately capture the result, if it is <= 
+                        res=nums[mid].first;  // immediately capture the result, if it is <=  and move forward...coz u need the most recent valuel
                         left=mid+1;
              }
              else{
