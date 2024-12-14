@@ -15,7 +15,7 @@ above is u.b code
 below is l.b
 1 2 2 2 2 2 2   ...2 is  = index 1
 
-if(nums[mid]<=target){
+if(nums[mid]<=target){  // first if case should have the main requirement or the definition
 		right=mid-1; // I move to my left.. I need 						leftmost
 		res=mid;
 
