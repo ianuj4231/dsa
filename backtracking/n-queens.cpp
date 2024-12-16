@@ -3,12 +3,12 @@ public:
     vector<vector<string>> solveNQueens(int n) {
          vector<vector<string>> res;
          vector<string> board(n, string(n,'.'));
-         set<int> cols, diag1, diag2;
+         unordered_set<int> cols, diag1, diag2;
          bt(res, board, 0, n, cols, diag1, diag2);
          return res;
     }
     void bt(vector<vector<string>>& res, vector<string>& board, int row, int n,
-                   set<int>& cols, set<int>& diag1, set<int>& diag2)
+                   unordered_set<int>& cols, unordered_set<int>& diag1, unordered_set<int>& diag2)
     {
            
            if(row==n){
