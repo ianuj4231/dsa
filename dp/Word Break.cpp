@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//savefarmers is s 
 bool check(string s, map<string, bool> mp, int i, vector<int> dp ){
    if(s.size()==i){
      return true;
