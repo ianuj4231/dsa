@@ -1,36 +1,44 @@
 class Solution {
 public:
-    vector<vector<string>> partition(string s) {
-        vector<vector<string>> res; // Stores the final result
-        vector<string> curr;       // Stores the current partition
-        backtrack(0, curr, res, s);
-        return res;
-    }
 
-private:
-    // Helper function to check if a substring is a palindrome
-    bool ispalin(const string& s, int start, int end) {
-        while (start < end) {
-            if (s[start] != s[end]) {
+    map<pair<int, int>, bool> memo;
+
+    bool ispal(int left, int right, const string& s) {
+        if (memo.find({left, right}) != memo.end()) {
+            return memo[{left, right}];
+        }
+        
+        while (left < right) {
+            if (s[left] != s[right]) {
+                memo[{left, right}] = false;
                 return false;
             }
-            start++;
-            end--;
+            left++;
+            right--;
         }
+        
+        memo[{left, right}] = true;
         return true;
     }
 
-    // Backtracking function
-    void backtrack(int index, vector<string>& curr, vector<vector<string>>& res, const string& s) {
-        if (index == s.size()) { // If the end of the string is reached
-            res.push_back(curr); // Add the current partition to the result
+    vector<vector<string>> partition(string s) {
+        int n = s.size();
+        vector<vector<string>> res;
+        vector<string> curr;
+        bt(res, curr, n, s, 0);
+        return res;
+    }
+    
+    void bt(vector<vector<string>>& res, vector<string>& curr, int n, const string& s, int index) {
+        if (index == s.size()) {
+            res.push_back(curr);
             return;
         }
-        for (int i = index; i < s.size(); i++) {
-            if (ispalin(s, index, i)) { // Check if the substring is a palindrome
-                curr.push_back(s.substr(index, i - index + 1)); // Add the substring
-                backtrack(i + 1, curr, res, s);                 // Recursive call
-                curr.pop_back();                               // Backtrack
+        for (int i = index; i < n; i++) {
+            if (ispal(index, i, s)) {
+                curr.push_back(s.substr(index, i - index + 1));
+                bt(res, curr, n, s, i + 1);
+                curr.pop_back();
             }
         }
     }
