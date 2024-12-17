@@ -9,27 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-// time is o-N and space is o-H
 class Solution {
+    private: 
+    int preindex=0;
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-             unordered_map<int, int> mp;
-             for(int i=0;i<inorder.size();i++){
-                mp[inorder[i]]=i;
-             }
-             function<TreeNode*(int& , int , int )>build=[&](int& preindex, int instart , int  inend)->TreeNode*{
-                        if(instart >  inend )return nullptr;
+        
+        map<int, int> mp;
+        for(int i=0;i<inorder.size();i++){
+            mp[inorder[i]]=i;
+        }
+    
+        function<TreeNode*( int,int)>build=[&](  int instart,int inend)->TreeNode*{
+                   if(inend < instart ){
+                    return nullptr;
+                   }
+                   int rootval=preorder[preindex++];
+                   int inindex=mp[rootval];
+                   TreeNode* root=new TreeNode(rootval);
+                   root->left=build( instart, inindex-1);
+                   root->right=build( inindex+1, inend);
+                   return root;
+        };
 
-                        int rootval=preorder[preindex++];
-                        TreeNode* root = new TreeNode(rootval);
-                        int inindex=mp[rootval];
-              
-                        root->left=build(preindex, instart, inindex-1);
-                        root->right=build(preindex, inindex+1, inend);
-              
-                        return root;
-             };
-                int preindex=0;
-                return build(preindex, 0, inorder.size()-1);
+        return build( 0, inorder.size()-1);
     }
+
+
 };
